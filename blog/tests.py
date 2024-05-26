@@ -33,6 +33,10 @@ class PostTestCase(TestCase):
     def test_author_blog_posts_relation(self):
         user = User.objects.get(username="tester")
         posts = user.blog_posts.all()
+        """
+        NOTE: despite setting descending order as default for retrieving 
+        posts it does not apply on related object
+        """
         self.assertEqual(posts[0].title, "testing post 2")
         self.assertEqual(posts[1].title, "testing post")
 
