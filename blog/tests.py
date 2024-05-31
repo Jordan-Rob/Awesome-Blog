@@ -43,3 +43,12 @@ class PostTestCase(TestCase):
     def test_default_blog_post_status(self):
         post = Post.objects.get(title="testing post")
         self.assertEqual(post.status, "DF")
+
+    def test_published_manager(self):
+        post = Post.objects.get(title="testing post")
+        post.status = "PB"
+        post.save()
+
+        posts = Post.published.filter(title__istartswith="testing")
+        self.assertEqual(posts.count(), 1)
+        self.assertEqual(posts[0].title, "testing post")
